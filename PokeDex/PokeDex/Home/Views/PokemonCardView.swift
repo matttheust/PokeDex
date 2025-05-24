@@ -18,71 +18,71 @@ struct PokemonCardView: View {
             // MARK: - Fundo Principal do Card
             Color(AppColor.white)
                 .cornerRadius(12)
-                .shadow(color: Color(AppColor.grayDark).opacity(0.2), radius: 5, x: 0, y: 2)
+                .shadow(color: Color(AppColor.grayDark).opacity(0.15), radius: 4, x: 0, y: 2)
             
             // MARK: - Conteúdo do Card
             VStack(spacing: 0) {
                 // MARK: - Área da Imagem
-                Color(AppColor.white)
-                    .frame(height: 120)
-                    .overlay(
-                        AsyncImage(url: pokemon.imageUrl) { phase in
-                            switch phase {
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 80, height: 80)
-                            case .failure:
-                                Image(systemName: "questionmark.circle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 80, height: 80)
-                                    .foregroundColor(Color(AppColor.grayMedium))
-                            case .empty:
-                                ProgressView()
-                                    .frame(width: 80, height: 80)
-                            @unknown default:
-                                EmptyView()
-                            }
-                        }
-                        .offset(y: 45)
-                    )
+                Spacer()
+                AsyncImage(url: pokemon.imageUrl) { phase in // Carregando a imagem
+                    switch phase {
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 75, height: 75)
+                    case .failure:
+                        Image(systemName: "questionmark.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60)
+                            .foregroundColor(Color(AppColor.grayMedium))
+                    case .empty:
+                        ProgressView()
+                            .frame(width: 75, height: 75)
+                    @unknown default:
+                        EmptyView()
+                    }
+                }
+                .frame(height: 90)
+                Spacer()
                 
                 // MARK: - Área do Nome
                 LinearGradient(
                     gradient: Gradient(colors: [
-                        Color(AppColor.grayLight).opacity(0.15),
-                        Color(AppColor.grayLight).opacity(0.25)
+                        Color(AppColor.grayBackground).opacity(0.5),
+                        Color(AppColor.grayLight).opacity(0.7)
                     ]),
                     startPoint: .top,
                     endPoint: .bottom
                 )
-                .frame(height: 100)
+                .frame(height: 60)
                 .overlay(
                     Text(pokemon.capitalizedName)
-                        .font(.headline)
+                        .font(.subheadline.weight(.semibold))
                         .foregroundColor(Color(AppColor.grayDark))
-                        .padding(.top, 50)
+                        .lineLimit(1)
+                        .padding(.horizontal, 8)
                 )
                 .clipShape(
-                    .rect( // UnevenRoundedRectangle nativa (iOS 17+)
-                        topLeadingRadius: 25,
-                        topTrailingRadius: 25
+                    .rect(
+                        topLeadingRadius: 20,
+                        topTrailingRadius: 20
                     )
                 )
-                .padding(.top, -20)
             }
-            .cornerRadius(12)
-            .clipped()
+            .clipShape(RoundedRectangle(cornerRadius: 12))
             
             // MARK: - Número do Pokémon
             Text(pokemon.formattedId)
-                .font(.caption)
-                .foregroundColor(Color(AppColor.grayMedium))
-                .padding(8)
+                .font(.caption2.weight(.bold))
+                .foregroundColor(Color(AppColor.grayDark).opacity(0.7))
+                .padding(6)
+                .background(Color(AppColor.white).opacity(0.5).blur(radius: 2))
+                .clipShape(Capsule())
+                .padding(5)
         }
-        .frame(width: 200, height: 200)
+        .frame(height: 160)
     }
 }
 
@@ -101,10 +101,30 @@ struct PokemonCardView_Previews: PreviewProvider {
                 )
             )
         )
-        
-        PokemonCardView(pokemon: pikachuPreview)
-            .padding()
-            .previewLayout(.sizeThatFits)
-            .background(Color.gray.opacity(0.1))
+        let bulbasaurPreview = Pokemon(
+            id: 1,
+            name: "Bulbasaur",
+            sprites: PokemonSprites(
+                frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+                other: OtherSprites(
+                    officialArtwork: OfficialArtwork(
+                        frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+                    )
+                )
+            )
+        )
+
+        Grid {
+            GridRow {
+                PokemonCardView(pokemon: pikachuPreview)
+                PokemonCardView(pokemon: bulbasaurPreview)
+            }
+            GridRow {
+                PokemonCardView(pokemon: Pokemon(id: 4, name: "Charmander", sprites: PokemonSprites(frontDefault: "", other: nil)))
+                PokemonCardView(pokemon: Pokemon(id: 7, name: "Squirtle", sprites: PokemonSprites(frontDefault: "", other: nil)))
+            }
+        }
+        .padding()
+        .background(Color(AppColor.grayBackground))
     }
 }
