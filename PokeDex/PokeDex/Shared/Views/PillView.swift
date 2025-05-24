@@ -38,7 +38,7 @@ struct PillView_Previews: PreviewProvider {
             .padding()
             .background(Color(AppColor.grayBackground))
             
-            PillView(type: .grass)
+            PillView(type: .fighting)
                 .padding()
                 .previewLayout(.sizeThatFits)
         }
