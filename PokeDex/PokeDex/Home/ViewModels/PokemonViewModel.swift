@@ -28,7 +28,8 @@ class PokemonViewModel: ObservableObject {
         self.isLoading = true
         self.errorMessage = nil
         self.pokemons = []
-
+        
+        // Mapeia erros
         Task {
             do {
                 let fetchedPokemons = try await homeApiService.fetchPrimeiraGeracao()
