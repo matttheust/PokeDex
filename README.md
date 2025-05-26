@@ -34,14 +34,6 @@ Uma aplicação Pokédex moderna construída com SwiftUI, consumindo dados da [P
 * **Xcode**: Ambiente de desenvolvimento.
 * **Git & GitHub**: Para controle de versão e gerenciamento do projeto.
 
-## 🚀 Estrutura do Projeto
-
-O projeto está organizado nas seguintes pastas principais:
-
-* `Shared/`: Contém componentes reutilizáveis como cores (`AppColor`), enums (`PokemonType`), e views genéricas (`PillView`).
-* `Home/`: Contém todos os arquivos relacionados à tela principal de listagem de Pokémon (Models, Services, ViewModels, Views).
-* `Details/`: (A ser desenvolvido) Conterá os arquivos para a tela de detalhes do Pokémon.
-
 ## 🤝 Contribuições 
 
 Contribuições são bem-vindas! Se você tem sugestões ou quer corrigir algo, sinta-se à vontade para abrir uma Issue ou um Pull Request.
