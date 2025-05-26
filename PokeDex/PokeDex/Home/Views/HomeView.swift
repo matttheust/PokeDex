@@ -58,6 +58,8 @@ struct HomeView: View {
                 viewModel.carregarPokemons()
             }
         }
+        
+        // TODO: Exibir a tela de detalhes do Pokémon selecionado - vai ser navigation link depois. 
         .sheet(item: $selectedPokemon) { pokemon in
             // TODO: Substituir este placeholder pela PokemonDetailView real quando ela for criada.
             // Exemplo: PokemonDetailView(pokemonId: pokemon.id)

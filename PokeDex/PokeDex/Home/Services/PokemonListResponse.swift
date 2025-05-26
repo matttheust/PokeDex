@@ -68,6 +68,6 @@ class HomeAPIService {
             }
         })
         
-        return pokemonsDetalhes.sorted { $0.id < $1.id }
+        return pokemonsDetalhes.sorted { $0.id < $1.id } // Ordena os Pokémon pela ID - muito importante!!!
     }
 }
