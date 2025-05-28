@@ -12,7 +12,7 @@ struct HomeView: View {
     // MARK: - Estados e ViewModel
     @StateObject private var viewModel = PokemonViewModel()
     @State private var searchText: String = ""
-    @State private var selectedPokemon: Pokemon? // Para apresentar a tela de detalhes
+    @State private var selectedPokemon: Pokemon? // Para apresentar a tela de detalhes via .sheet
 
     // MARK: - Propriedades Computadas
     private var filteredPokemons: [Pokemon] {
@@ -28,7 +28,7 @@ struct HomeView: View {
 
     // MARK: - Corpo da View
     var body: some View {
-        NavigationStack {
+        NavigationStack { // Ou NavigationView se preferir/precisar de compatibilidade
             ZStack {
                 // MARK: - Fundo
                 Color(AppColor.primary)
@@ -43,33 +43,27 @@ struct HomeView: View {
                         StatusIndicatorView(isLoading: true, errorMessage: nil, retryAction: nil)
                     } else if let errorMessage = viewModel.errorMessage {
                         StatusIndicatorView(isLoading: false, errorMessage: errorMessage) {
-                            viewModel.carregarPokemons() // Ação de tentar novamente
+                            viewModel.carregarPokemons()
                         }
                     } else {
                         PokemonGridView(pokemons: filteredPokemons, selectedPokemon: $selectedPokemon)
                     }
                 }
-                .padding(.top, 20)
+                .padding(.top, 20) // Padding para o conteúdo não colar na status bar se não usar navigationBar
             }
-            .navigationBarHidden(true)
+            .navigationBarHidden(true) // Esconde a barra de navegação padrão do NavigationStack
         }
         .onAppear {
             if viewModel.pokemons.isEmpty {
                 viewModel.carregarPokemons()
             }
         }
-        
-        // TODO: Exibir a tela de detalhes do Pokémon selecionado - vai ser navigation link depois. 
-        .sheet(item: $selectedPokemon) { pokemon in
-            // TODO: Substituir este placeholder pela PokemonDetailView real quando ela for criada.
-            // Exemplo: PokemonDetailView(pokemonId: pokemon.id)
-            VStack {
-                Text("Tela de Detalhes para:")
-                Text(pokemon.capitalizedName)
-                    .font(.largeTitle)
-                Text(pokemon.formattedId)
-            }
-            .padding()
+        // MARK: - Apresentação da Tela de Detalhes
+        .sheet(item: $selectedPokemon) { pokemonSelecionadoNaLista in
+            // Chama a PokemonDetailView real, passando o ID do Pokémon selecionado.
+            // A PokemonDetailView tem seu próprio botão de voltar que usa @Environment(\.dismiss)
+            // para fechar a sheet.
+            PokemonDetailView(pokemonId: pokemonSelecionadoNaLista.id)
         }
     }
 }
