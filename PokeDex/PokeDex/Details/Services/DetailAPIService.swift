@@ -34,12 +34,10 @@ class DetailAPIService {
         do {
             apiDetailResponse = try JSONDecoder().decode(APIPokemonDetailResponse.self, from: pokemonData)
         } catch {
-            // print("DEBUG: Erro ao decodificar APIPokemonDetailResponse para ID \(pokemonId): \(error)")
             throw DetailAPIServiceError.falhaNaDecodificacao(error)
         }
 
         guard let speciesURL = URL(string: apiDetailResponse.species.url) else {
-            // print("DEBUG: URL da espécie inválida para ID \(pokemonId): \(apiDetailResponse.species.url)")
             throw DetailAPIServiceError.especieNaoEncontrada
         }
 
@@ -49,7 +47,6 @@ class DetailAPIService {
         do {
             apiSpeciesResponse = try JSONDecoder().decode(APISpeciesResponse.self, from: speciesData)
         } catch {
-            // print("DEBUG: Erro ao decodificar APISpeciesResponse para ID \(pokemonId) (URL: \(speciesURL)): \(error)")
             throw DetailAPIServiceError.falhaNaDecodificacao(error)
         }
 

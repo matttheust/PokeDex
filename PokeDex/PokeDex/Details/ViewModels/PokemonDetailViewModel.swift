@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Combine // Importante para ObservableObject e @Published - ESTUDAR ISSO
+import Combine // Importante para  ObservableObject e @Published - ESTUDAR ISSO
 
 // MARK: - ViewModel da Tela de Detalhes
 @MainActor

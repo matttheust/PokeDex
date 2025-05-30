@@ -10,7 +10,8 @@ import SwiftUI
 // MARK: - View para Coluna de Informação Genérica
 struct PokemonInfoColumnView: View {
     // MARK: - Propriedades
-    let iconName: String? // Nome do asset de imagem customizado (opcional)
+    let iconName: String?
+    
     let values: [String]
     let labelText: String
 
@@ -28,11 +29,11 @@ struct PokemonInfoColumnView: View {
         VStack(alignment: .center, spacing: 6) {
             // MARK: - Ícone (Opcional)
             if let iconName = iconName, !iconName.isEmpty {
-                Image(iconName) // Carrega do Assets.xcassets
+                Image(iconName)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
-                    // .foregroundColor(iconColor) // Aplicar se o asset for template e você quiser tingi-lo
+                    
             } else {
                 Spacer().frame(width: 20, height: 20)
             }
@@ -81,21 +82,21 @@ struct PokemonInfoColumnView_Previews: PreviewProvider {
     static var previews: some View {
         HStack(alignment: .top, spacing: 16) {
             PokemonInfoColumnView(
-                iconName: "weight", // Nome do seu asset customizado
+                iconName: "weight",
                 values: ["6.9 kg"],
                 labelText: "Weight"
             )
             Divider().frame(height: 65)
             
             PokemonInfoColumnView(
-                iconName: "straighten", // Nome do seu asset customizado
+                iconName: "straighten",
                 values: ["0.7 m"],
                 labelText: "Height"
             )
             Divider().frame(height: 65)
 
             PokemonInfoColumnView(
-                iconName: nil, // Sem ícone para Moves, conforme design
+                iconName: nil, 
                 values: ["Overgrow", "Chlorophyll"],
                 labelText: "Moves"
             )

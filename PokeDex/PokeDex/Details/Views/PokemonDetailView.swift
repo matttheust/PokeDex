@@ -43,8 +43,6 @@ struct PokemonDetailView: View {
                             PokemonDetailInfoCardView(details: details)
                                 // O offset precisa ser ajustado em relação à altura do header
                                 .offset(y: -20)
-                                // O InfoCardView tentará ocupar o restante do espaço.
-                                // O Spacer interno dele ajudará.
                             Spacer()
                         }
                     }
