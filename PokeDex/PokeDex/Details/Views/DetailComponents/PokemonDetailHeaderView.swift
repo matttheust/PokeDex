@@ -5,7 +5,6 @@
 //  Created by Matheus  Torres on 28/05/25.
 //
 
-// PokedexApp/Details/Views/DetailComponents/PokemonDetailHeaderView.swift
 import SwiftUI
 
 // MARK: - Cabeçalho da Tela de Detalhes
@@ -63,8 +62,7 @@ struct PokemonDetailHeaderView: View {
                         .frame(width: 60, alignment: .trailing)
                 }
                 .padding(.horizontal)
-                // Padding no topo da VStack abaixo cuidará do espaço para a safe area.
-
+                
                 // MARK: - Imagem do Pokémon com Navegação
                 ZStack {
                     AsyncImage(url: details.imageUrl) { phase in
@@ -118,29 +116,18 @@ struct PokemonDetailHeaderView: View {
                 }
                 .padding(.top, 8)
             }
-            // Padding no topo da VStack para o conteúdo não colar na status bar/Dynamic Island.
-            // Use um valor fixo que funcione bem ou o helper da safe area.
-            .padding(.top, (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.safeAreaInsets.top ?? 44) // Aumentei o fallback
-            // Padding inferior para criar o espaço onde o InfoCardView vai "entrar".
+
+            .padding(.top, (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.safeAreaInsets.top ?? 44)
             .padding(.bottom, 40)
         }
-        // O header determina sua própria altura pelo conteúdo e paddings.
     }
 }
 
-// MARK: - Helper para Safe Area (Mantenha em Utils ou Shared/Extensions)
-// Se você já tem isso em outro lugar, pode remover daqui.
-// extension UIApplication {
-//     var safeAreaInsetsIfAvailable: UIEdgeInsets? {
-//         (connectedScenes.first as? UIWindowScene)?.windows.first { $0.isKeyWindow }?.safeAreaInsets
-//     }
-// }
-
 // MARK: - Previews
-// ... (Previews do PokemonDetailHeaderView como estavam, eles devem funcionar bem) ...
+
 struct PokemonDetailHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        // ... (seu mock de details)
+
         let grassType = PokemonType(apiName: "grass") ?? .normal
         let poisonType = PokemonType(apiName: "poison") ?? .normal
         let mockDetails = PokemonFullDetails(

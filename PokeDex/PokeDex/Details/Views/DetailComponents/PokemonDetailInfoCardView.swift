@@ -5,7 +5,6 @@
 //  Created by Matheus  Torres on 28/05/25.
 //
 
-// PokedexApp/Details/Views/DetailComponents/PokemonDetailInfoCardView.swift
 import SwiftUI
 
 // MARK: - Card de Informações Detalhadas do Pokémon
@@ -26,7 +25,7 @@ struct PokemonDetailInfoCardView: View {
                 .font(sectionTitleFont)
                 .foregroundColor(textColor)
                 .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.top, 30) // Espaço para o header "vazar" (AJUSTE ESTE VALOR)
+                .padding(.top, 30)
 
             HStack(alignment: .top, spacing: 8) {
                 PokemonInfoColumnView(
@@ -36,7 +35,7 @@ struct PokemonDetailInfoCardView: View {
                 )
                 Divider().frame(height: 65)
                 PokemonInfoColumnView(
-                    iconName: "straighten", // Seu asset
+                    iconName: "straighten",
                     values: ["\(String(format: "%.1f", details.heightInM)) m"],
                     labelText: "Height"
                 )
@@ -53,10 +52,9 @@ struct PokemonDetailInfoCardView: View {
             Text(details.description)
                                 .font(descriptionFont)
                                 .foregroundColor(descriptionColor)
-                                // Para o Text se expandir e quebrar linhas, ele precisa saber que pode usar a largura disponível.
-                                .frame(maxWidth: .infinity, alignment: .leading) // Garante que ele use a largura
-                                 .fixedSize(horizontal: false, vertical: true) // FORÇA o Text a se expandir verticalmente para mostrar todo o conteúdo.
-                                                                              // Isso é crucial se o pai não está dando espaço suficiente.
+                                
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                 .fixedSize(horizontal: false, vertical: true) // Permite quebra de linha - NOVO
                                 .padding(.horizontal)
                                 .padding(.top, 8)
 
@@ -86,7 +84,7 @@ struct PokemonDetailInfoCardView: View {
 // MARK: - Previews
 struct PokemonDetailInfoCardView_Previews: PreviewProvider {
     static var previews: some View {
-        // ... (seu mock de details)
+
         let grassType = PokemonType(apiName: "grass") ?? .normal
         let mockDetails = PokemonFullDetails(
             id: 1, name: "Bulbasaur",
